@@ -1,59 +1,244 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#101d37">
-<meta name="description" content="Три желания — IT-подписка: три задачи за 30 календарных дней.">
-<title>Три желания — ваши IT-задачи в надёжных руках</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Три IT желания — IT-подписка для ваших задач</title>
+<meta name="description" content="Разработка, автоматизация и поддержка. Три IT-задачи за 30 календарных дней — 29 700.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script src="seasons.js"></script>
 <link rel="stylesheet" href="styles.css">
+<script defer src="app.js">
+</script>
+<link rel="stylesheet" href="game.css">
+<script defer src="game.js"></script>
+<link rel="stylesheet" href="seasons.css">
 </head>
 <body>
-<header class="header"><div class="container nav-wrap">
-<a class="brand" href="#home" aria-label="Три желания — главная"><span class="brand-mark">✦</span><span><b>Три желания</b><small>IT-сервис для ваших задач</small></span></a>
-<button class="menu-toggle" aria-label="Открыть меню" aria-expanded="false">☰</button>
-<nav class="nav" aria-label="Главная навигация"><a href="#benefits">Преимущества</a><a href="#services">Услуги</a><a href="#how">Как это работает</a><a href="#price">Стоимость</a><a href="#faq">FAQ</a><a href="#contacts">Контакты</a></nav>
-<a class="button button-small nav-cta" href="#request">Оставить заявку <span>↗</span></a>
-</div></header>
-<main>
-<section class="hero section" id="home"><div class="container hero-grid">
-<div class="hero-copy"><div class="eyebrow"><span class="eyebrow-dot"></span> IT-СЕРВИС «ТРИ ЖЕЛАНИЯ»</div>
-<h1>Три задачи.<br><span>Один надёжный</span><br>партнёр.</h1>
-<p class="hero-lead">Поможем решить ваши IT-задачи — от разработки и автоматизации до технической поддержки. Одна подписка, понятные условия и работа через менеджера.</p>
-<div class="hero-actions"><a class="button" href="#request">Обсудить задачу <span>↗</span></a><div class="price-note"><span class="price-icon">₽</span><span><b>29 700 ₽</b><small>за 30 календарных дней</small></span></div></div>
-<div class="hero-proof"><span class="proof-avatars"><i>✓</i><i>✦</i><i>↗</i></span><span>Три задачи — один понятный план</span></div>
+<a class="skip" href="#main">Перейти к содержимому</a>
+<header class="header wrap">
+<a class="brand" href="index.html" aria-label="Три IT желания">
+<span class="brand-mark" aria-hidden="true">
+<i>
+</i>
+<i>
+</i>
+<i>
+</i>
+</span>Три IT желания</a>
+<nav aria-label="Навигация">
+<a href="#services">Услуги</a>
+<a href="#subscription">Подписка</a>
+<a href="#process">Как работаем</a>
+<a href="#game">Игра</a>
+</nav>
+<div class="season-picker" data-season-picker hidden><label for="season-select">Оформление</label><select id="season-select" data-season-select><option value="auto">По календарю</option><option value="winter">Зима</option><option value="spring">Весна</option><option value="summer">Лето</option><option value="autumn">Осень</option></select></div>
+<div class="language" aria-label="Язык">
+<span aria-current="true">RU</span>
+<span aria-hidden="true">/</span>
+<a class="language-link" href="en/index.html" lang="en" hreflang="en">EN</a>
 </div>
-<div class="hero-visual"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="visual-label label-top">ВАШИ ЗАДАЧИ <span>↘</span></div>
-<div class="glass-card main-card"><div class="window-dots"><i></i><i></i><i></i><span>workspace / your goals</span></div><div class="screen-brand">✦</div><div class="screen-title">Есть задача?<br><em>Решим вместе.</em></div><div class="screen-line"></div><div class="screen-task"><span class="task-check">✓</span><span><b>Задача № 01</b><small>Уточняем детали</small></span><span class="task-arrow">↗</span></div><div class="screen-task"><span class="task-check">✓</span><span><b>Задача № 02</b><small>Готовим решение</small></span><span class="task-arrow">↗</span></div><div class="screen-task muted"><span class="task-check">03</span><span><b>Задача № 03</b><small>Ваш следующий шаг</small></span><span class="task-arrow">＋</span></div></div>
-<div class="float-card float-hours"><span class="float-icon">◷</span><span><b>До 8 часов</b><small>на одну задачу</small></span></div><div class="float-card float-days"><span class="float-icon">✳</span><span><b>30 дней</b><small>одна подписка</small></span></div><div class="visual-label label-bottom">МЕНЬШЕ СЛОЖНОСТИ. БОЛЬШЕ РЕЗУЛЬТАТА.</div></div>
-</div></section>
-<section class="trust-strip"><div class="container trust-grid"><div><span class="trust-icon">↗</span><b>Понятный процесс</b><small>Обсуждаем задачу до старта</small></div><div><span class="trust-icon">◇</span><b>Профессиональный подход</b><small>Подбираем решение под запрос</small></div><div><span class="trust-icon">◷</span><b>Прозрачные условия</b><small>Цена и рамки известны заранее</small></div><div><span class="trust-icon">♡</span><b>Работа через менеджера</b><small>Один контакт для коммуникации</small></div></div></section>
-<section class="section" id="benefits"><div class="container"><div class="section-heading"><div><div class="eyebrow">ПОЧЕМУ «ТРИ ЖЕЛАНИЯ»</div><h2>Технологии должны<br>упрощать жизнь.</h2></div><p>Без лишней сложности: вы рассказываете, что нужно сделать, а мы вместе определяем следующий шаг.</p></div>
-<div class="benefit-grid"><article class="benefit-card"><span class="card-number">01 / БЫСТРО</span><div class="line-icon">↯</div><h3>Фокус на задаче</h3><p>Сначала разбираемся в запросе и согласуем объём работ, затем приступаем к выполнению.</p></article><article class="benefit-card featured"><span class="card-number">02 / ПРОЗРАЧНО</span><div class="line-icon">◈</div><h3>Понятные условия</h3><p>Три задачи и до 8 часов суммарной трудоёмкости на каждую — в рамках одной подписки.</p></article><article class="benefit-card"><span class="card-number">03 / УДОБНО</span><div class="line-icon">⌘</div><h3>Разные направления</h3><p>Можно обсудить разработку, автоматизацию, поддержку или другие IT-потребности.</p></article></div></div></section>
-<section class="section services-section" id="services"><div class="container"><div class="section-heading"><div><div class="eyebrow">НАПРАВЛЕНИЯ УСЛУГ</div><h2>Разные задачи.<br>Один контакт.</h2></div><p>Расскажите, что хотите улучшить. Конкретный состав работ и возможность выполнения согласуем с менеджером.</p></div>
-<div class="services-grid"><article class="service-card"><span class="service-icon">&lt;/&gt;</span><h3>Веб-разработка</h3><p>Сайты, веб-интерфейсы и улучшения существующих решений.</p><span class="service-index">01</span></article><article class="service-card"><span class="service-icon">⌘</span><h3>Автоматизация</h3><p>Упрощение повторяющихся процессов и интеграция инструментов.</p><span class="service-index">02</span></article><article class="service-card"><span class="service-icon">◎</span><h3>Техническая поддержка</h3><p>Диагностика, настройка и помощь с техническими вопросами.</p><span class="service-index">03</span></article><article class="service-card"><span class="service-icon">✳</span><h3>Дизайн и интерфейсы</h3><p>Работа над удобством и визуальной логикой цифровых продуктов.</p><span class="service-index">04</span></article><article class="service-card"><span class="service-icon">☁</span><h3>Облачные решения</h3><p>Обсуждение настройки и сопровождения облачной инфраструктуры.</p><span class="service-index">05</span></article><article class="service-card service-card-dark"><span class="service-icon">↗</span><h3>Другие IT-задачи</h3><p>Опишите потребность — вместе определим, подходит ли она для подписки.</p><a href="#request" class="text-link">Обсудить задачу ↗</a><span class="service-index">06</span></article></div></div></section>
-<section class="section how-section" id="how"><div class="container"><div class="section-heading"><div><div class="eyebrow">ПРИНЦИП РАБОТЫ</div><h2>Просто. По шагам.</h2></div><p>Подписка активируется с участием менеджера. До начала работы уточняем задачу и согласуем условия.</p></div>
-<div class="steps-grid"><article class="step"><span class="step-no">01</span><div class="step-symbol">▤</div><h3>Оставляете заявку</h3><p>Кратко рассказываете о себе и задаче.</p></article><article class="step"><span class="step-no">02</span><div class="step-symbol">☏</div><h3>Обсуждаем детали</h3><p>Менеджер связывается с вами и уточняет запрос.</p></article><article class="step"><span class="step-no">03</span><div class="step-symbol">✓</div><h3>Согласуем решение</h3><p>Уточняем объём и возможность выполнения задачи.</p></article><article class="step"><span class="step-no">04</span><div class="step-symbol">✦</div><h3>Выполняем работу</h3><p>Работаем над согласованными задачами в рамках подписки.</p></article></div></div></section>
-<section class="section price-section" id="price"><div class="container price-layout"><div class="price-intro"><div class="eyebrow eyebrow-light">СТОИМОСТЬ ПОДПИСКИ</div><h2>Выгодное решение<br>для ваших задач.</h2><p>Одна подписка — три задачи. Удобно, когда нужно решить несколько IT-вопросов без лишней организационной сложности.</p><a class="button button-light" href="#request">Обсудить подписку <span>↗</span></a><div class="price-footnote">Продажа и активация выполняются через менеджера.</div></div>
-<div class="price-card"><div class="price-card-top"><span class="price-tag">ОДНА ПОДПИСКА</span><span class="price-star">✳</span></div><div class="price-amount">29 700 <small>₽</small></div><div class="price-duration">30 календарных дней</div><div class="price-divider"></div><ul class="price-list"><li><span>✓</span><div><b>3 задачи</b><small>В рамках одной подписки</small></div></li><li><span>✓</span><div><b>До 8 часов на задачу</b><small>Суммарно по всем специалистам</small></div></li><li><span>✓</span><div><b>Обсуждение с менеджером</b><small>Согласование деталей до начала работ</small></div></li><li><span>✓</span><div><b>30 календарных дней</b><small>Срок подписки</small></div></li></ul><a class="button button-full" href="#request">Оставить заявку <span>↗</span></a><p class="price-disclaimer">Онлайн-оплата и автоматическая активация не предусмотрены в первой версии сайта.</p></div></div></section>
-<section class="section audience-section"><div class="container audience-layout"><div><div class="eyebrow">ДЛЯ КОГО</div><h2>Подходит тем,<br>кому нужно решить.</h2><p class="audience-copy">Работаем с запросами частных клиентов и бизнеса. Начните с описания задачи — детали обсудим лично.</p></div><article class="audience-card"><div class="audience-symbol">♙</div><h3>Частным клиентам</h3><p>Когда нужна помощь с личным IT-проектом или техническим вопросом.</p><ul><li>Обсуждение индивидуальных задач</li><li>Понятные условия работы</li><li>Связь через менеджера</li></ul><a class="text-link" href="#request">Описать задачу ↗</a></article><article class="audience-card"><div class="audience-symbol">▦</div><h3>Для бизнеса</h3><p>Когда нужно улучшить цифровой процесс или разобраться с IT-потребностью.</p><ul><li>Задачи для команды и процессов</li><li>Обсуждение интеграций</li><li>Согласование объёма работ</li></ul><a class="text-link" href="#request">Обсудить потребность ↗</a></article></div></section>
-<section class="section faq-section" id="faq"><div class="container faq-layout"><div><div class="eyebrow">FAQ</div><h2>Частые вопросы.</h2><p>Если не нашли ответ, оставьте заявку — разберём ваш вопрос лично.</p><a href="#request" class="text-link">Задать вопрос ↗</a></div><div class="faq-list">
-<details><summary>Что входит в подписку?</summary><p>Подписка включает 3 задачи. Максимальная оценочная трудоёмкость одной задачи — до 8 часов суммарно по всем специалистам. Конкретный состав работ согласуется с менеджером.</p></details>
-<details><summary>Сколько действует подписка?</summary><p>Подписка действует 30 календарных дней с момента активации и заканчивается в то же время суток через 30 календарных дней.</p></details>
-<details><summary>Как купить и активировать подписку?</summary><p>Оставьте заявку. Менеджер свяжется с вами, уточнит потребности и расскажет о дальнейших шагах. Онлайн-оплата и автоматическая активация на сайте не предусмотрены.</p></details>
-<details><summary>Можно ли обратиться от имени компании?</summary><p>Да, сервис рассчитан как на частных клиентов, так и на бизнес. Укажите тип клиента в форме заявки.</p></details>
-<details><summary>Какие задачи можно передать?</summary><p>Можно описать задачу в области разработки, автоматизации, дизайна, технической поддержки или другого IT-направления. Возможность выполнения подтверждается после обсуждения.</p></details>
-<details><summary>Что будет после отправки заявки?</summary><p>После успешной регистрации заявки на сервере сайт покажет подтверждение. Менеджер получит заявку по электронной почте и свяжется с вами.</p></details>
-</div></div></section>
-<section class="section request-section" id="request"><div class="container request-layout"><div class="request-copy"><div class="eyebrow eyebrow-light">ВАШ СЛЕДУЮЩИЙ ШАГ</div><h2>Расскажите,<br>что нужно решить.</h2><p>Оставьте контакты и короткое описание задачи. Менеджер свяжется с вами, чтобы обсудить детали.</p><div class="request-promise"><span>✳</span><div><b>Без лишних сложностей</b><small>Начнём с вашего запроса и подберём дальнейший шаг.</small></div></div></div>
-<form class="request-form" id="application-form" action="https://formspree.io/f/myeedlnv" method="POST" novalidate><div class="form-heading"><h3>Оставить заявку</h3><p>Поля со звёздочкой обязательны для заполнения.</p></div><div class="form-grid"><label>Имя <span>*</span><input name="name" autocomplete="name" required minlength="2" placeholder="Как к вам обращаться"><small class="field-error"></small></label><label>Телефон <span>*</span><input name="phone" type="tel" autocomplete="tel" required placeholder="+7 999 123-45-67"><small class="field-error"></small></label><label>Электронная почта <span>*</span><input name="email" type="email" autocomplete="email" required placeholder="you@example.ru"><small class="field-error"></small></label><label>Тип клиента <span>*</span><select name="clientType" required><option value="">Выберите тип клиента</option><option value="private">Частное лицо</option><option value="business">Бизнес</option></select><small class="field-error"></small></label><label class="full-field">Опишите задачу <span>*</span><textarea name="task" required minlength="10" rows="4" placeholder="Что нужно сделать? Какая помощь требуется?"></textarea><small class="field-error"></small></label></div>
-<label class="consent"><input type="checkbox" name="consent" required><span>Я даю согласие на обработку персональных данных и подтверждаю, что ознакомился(лась) с <a href="privacy.html" target="_blank" rel="noopener">политикой обработки персональных данных</a>.</span></label><small class="consent-error field-error"></small>
-<div class="hp-field" aria-hidden="true"><label>Не заполняйте это поле<input name="_gotcha" tabindex="-1" autocomplete="off"></label></div><div class="form-status" role="status" aria-live="polite"></div><button class="button button-full submit-button" type="submit">Отправить заявку <span>↗</span></button><p class="form-privacy">Заявка отправляется через Formspree для обработки и уведомления менеджера. Не указывайте в описании пароли и другую секретную информацию.</p>
-</form></div></section>
-<section class="contacts-section" id="contacts"><div class="container contacts-grid"><div><div class="eyebrow">СВЯЗАТЬСЯ С НАМИ</div><h2>На связи.</h2></div><a class="contact-item" href="tel:+79895966801"><span>☎</span><small>Телефон</small><b>+7 989 596-68-01</b></a><a class="contact-item" href="mailto:mailbox@familypost.ru"><span>✉</span><small>Электронная почта</small><b>mailbox@familypost.ru</b></a><a class="contact-item" href="https://t.me/+79895966801" target="_blank" rel="noopener noreferrer"><span>↗</span><small>Telegram</small><b>+7 989 596-68-01</b></a></div></section>
+</header>
+<main id="main">
+<section class="hero wrap">
+<p class="season-caption" data-season-caption></p>
+<p class="eyebrow">IT-ПОДПИСКА ДЛЯ ЛЮДЕЙ И БИЗНЕСА</p>
+<div class="hero-grid">
+<div>
+<h1>Меньше рутины.<br>Больше <em>возможностей.</em>
+</h1>
+<p class="lead">Сайт, автоматизация или технический вопрос. Превращаем ваши IT-желания в понятный план действий.</p>
+<a class="button" href="#request">Обсудить задачу</a>
+</div>
+<div class="wish-art" aria-hidden="true">
+<img class="tech-art-image" src="tech-art.svg" alt="">
+<span class="art-caption">BUILD · AUTOMATE · SUPPORT</span>
+</div>
+</div>
+<div class="facts">
+<div>
+<strong>3</strong>
+<span>задачи</span>
+</div>
+<div>
+<strong>30</strong>
+<span>календарных дней</span>
+</div>
+<div>
+<strong>
+<small>до </small>8</strong>
+<span>часов на задачу</span>
+</div>
+<p>Суммарная работа всех специалистов. Объём согласуем до старта.</p>
+</div>
+</section>
+<section class="section wrap" id="services">
+<div class="section-grid">
+<div>
+<p class="eyebrow">ЧЕМ МОЖЕМ ПОМОЧЬ</p>
+<h2>Технологии.<br>По делу.</h2>
+<p class="intro">От небольшого улучшения до нового инструмента. Начнём с того, что важно именно вам.</p>
+</div>
+<div class="service-list">
+<article>
+<h3>Разработка</h3>
+<p>Сайты, веб-интерфейсы и доработка существующих решений.</p>
+</article>
+<article>
+<h3>Автоматизация</h3>
+<p>Интеграции и инструменты, которые берут повторяющиеся действия на себя.</p>
+</article>
+<article>
+<h3>Дизайн</h3>
+<p>Понятные интерфейсы и визуальная логика цифровых продуктов.</p>
+</article>
+<article>
+<h3>Поддержка и облако</h3>
+<p>Диагностика, настройка и сопровождение ваших IT-инструментов.</p>
+</article>
+</div>
+</div>
+</section>
+<section class="subscription" id="subscription">
+<div class="wrap price-grid">
+<div>
+<p class="eyebrow">ОДНА ПОДПИСКА</p>
+<h2>Три желания.<br>Один план.</h2>
+<p class="intro">Для личных проектов и бизнеса. Сначала обсуждаем задачу и подтверждаем возможность выполнения.</p>
+</div>
+<div class="price-details">
+<p class="price">29 700
+</p>
+<p class="period">за 30 календарных дней</p>
+<ul>
+<li>3 согласованные задачи</li>
+<li>До 8 часов на каждую задачу</li>
+<li>Обсуждение и согласование с менеджером</li>
+</ul>
+<a class="button light" href="#request">Обсудить задачу</a>
+<p class="fineprint">Оплата и активация — после обсуждения с менеджером. Онлайн-оплаты на сайте нет.</p>
+</div>
+</div>
+</section>
+<section class="section wrap" id="process">
+<p class="eyebrow">КАК РАБОТАЕМ</p>
+<h2>От запроса<br>к решению.</h2>
+<div class="steps">
+<article>
+<span class="step-line" aria-hidden="true"></span>
+<h3>Расскажите о задаче</h3>
+<p>Опишите, что хотите создать, исправить или упростить.</p>
+</article>
+<article>
+<span class="step-line" aria-hidden="true"></span>
+<h3>Согласуем детали</h3>
+<p>Уточним объём, условия и возможность выполнения.</p>
+</article>
+<article>
+<span class="step-line" aria-hidden="true"></span>
+<h3>Приступим к работе</h3>
+<p>Выполняем согласованные задачи в рамках подписки.</p>
+</article>
+</div>
+</section>
+<section class="faq section wrap">
+<div class="section-grid">
+<h2>Есть вопросы?</h2>
+<div>
+<details>
+<summary>Что считается одной задачей?</summary>
+<p>Задача — согласованный объём работ с оценочной трудоёмкостью до 8 часов суммарно по всем специалистам. Состав и возможность выполнения обсуждаем до начала работ.</p>
+</details>
+<details>
+<summary>Когда начинается подписка?</summary>
+<p>С момента активации, согласованной с менеджером. Подписка действует 30 календарных дней и заканчивается в то же время суток через 30 дней.</p>
+</details>
+<details>
+<summary>Можно обратиться от компании?</summary>
+<p>Да. Мы рассматриваем запросы как частных клиентов, так и бизнеса.</p>
+</details>
+<details>
+<summary>А если задача больше восьми часов?</summary>
+<p>Опишите её в форме. До начала работ обсудим объём и возможность выполнения в рамках подписки. Отправка заявки не активирует подписку.</p>
+</details>
+</div>
+</div>
+</section>
+<section class="section wrap wish-game" id="game" aria-labelledby="game-title">
+<div class="game-heading"><div><p class="eyebrow">МИНУТА НА МАЛЕНЬКОЕ ЧУДО</p><h2 id="game-title">Поймай три желания</h2></div><p>Ловите звёзды, обходите баги. Три жизни и 60 секунд, чтобы собрать как можно больше желаний.</p></div>
+<div class="game-shell">
+<div class="game-stats"><span>Счёт <strong id="game-score">0</strong></span><span>Секунды <strong id="game-time">60</strong></span><span>Жизни <strong id="game-lives">3</strong></span></div>
+<div class="game-field" id="game-field" role="group" aria-label="Игровое поле: собирайте звёзды и избегайте багов" tabindex="0" aria-describedby="game-help">
+<div class="game-orbit" aria-hidden="true"></div><div class="game-orbit second" aria-hidden="true"></div>
+<div id="game-items" aria-hidden="true"></div><div class="game-basket" id="game-basket" aria-hidden="true"><span>///</span></div>
+<div class="game-overlay" id="game-overlay"><p id="game-message" role="status" aria-live="polite">Готовы исполнить желания?</p><button type="button" class="button" id="game-start">Играть</button></div>
+</div>
+<div class="game-movement"><button type="button" id="game-left" aria-label="Влево">←</button><label class="game-slider-label" for="game-position">Положение корзины<input id="game-position" type="range" min="0" max="100" value="50"></label><button type="button" id="game-right" aria-label="Вправо">→</button></div>
+<div class="game-tools"><button type="button" id="game-pause" disabled>Пауза</button><button type="button" id="game-music" aria-pressed="true">Музыка</button><button type="button" id="game-effects" aria-pressed="true">Эффекты</button><span>© YaCo 2026</span></div>
+</div>
+<p id="game-help" class="game-help">Перемещайте корзину пальцем по полю или ползунком. На компьютере используйте мышь или клавиши ← и →. Звезда: +10 очков, баг: −1 жизнь. Каждые три звезды подряд: +15 очков. Пропущенная звезда прерывает серию.</p>
+<noscript><p>Для игры включите JavaScript.</p></noscript>
+</section>
+<section class="request section" id="request">
+<div class="wrap section-grid">
+<div>
+<p class="eyebrow">НАЧНЁМ С ВАШЕЙ ИДЕИ</p>
+<h2>Какое у вас<br>
+<em>IT-желание?</em>
+</h2>
+<p class="intro">Расскажите, что нужно решить. Детали и следующий шаг обсудим после заявки.</p>
+</div>
+<form id="application-form" action="https://formspree.io/f/myeedlnv" method="POST" novalidate>
+<p class="form-note">Все поля обязательны.</p>
+<div class="form-row">
+<label for="name">Ваше имя</label>
+<input id="name" name="name" autocomplete="name" required minlength="2" maxlength="120" placeholder="Как к вам обращаться" aria-describedby="name-error">
+<span class="field-error" id="name-error"></span>
+</div>
+<div class="form-row">
+<label for="phone">Телефон</label>
+<input id="phone" name="phone" type="tel" autocomplete="tel" required maxlength="25" placeholder="+7 999 123-45-67" aria-describedby="phone-error">
+<span class="field-error" id="phone-error"></span>
+</div>
+<div class="form-row email-row">
+<label for="email">Email для ответа</label>
+<input id="email" name="email" type="email" autocomplete="email" required maxlength="254" placeholder="you@example.com" aria-describedby="email-error">
+<span class="field-error" id="email-error"></span>
+</div>
+<div class="form-row">
+<label for="clientType">Тип клиента</label>
+<select id="clientType" name="clientType" required aria-describedby="clientType-error"><option value="">Выберите тип клиента</option><option value="private">Частное лицо</option><option value="business">Бизнес</option></select>
+<span class="field-error" id="clientType-error"></span>
+</div>
+<div class="form-row">
+<label for="task">Ваша задача</label>
+<textarea id="task" name="task" required minlength="10" maxlength="5000" rows="4" placeholder="Что хотите сделать? Что должно измениться?" aria-describedby="task-error"></textarea>
+<span class="field-error" id="task-error"></span>
+</div>
+<label class="consent">
+<input type="checkbox" name="consent" required aria-describedby="consent-error">
+<span>Я согласен(на) на обработку данных заявки и ознакомился(лась) с <a href="privacy.html">политикой конфиденциальности</a>.</span>
+</label>
+<span id="consent-error" class="field-error"></span>
+<div class="honeypot" aria-hidden="true">
+<label>Website<input name="website" tabindex="-1" autocomplete="off">
+</label>
+</div>
+<p id="form-status" role="status" aria-live="polite" tabindex="-1"></p>
+<button class="button" type="submit">Отправить заявку</button>
+<p class="fineprint">Заявка отправляется через Formspree для обработки и уведомления менеджера. Не указывайте пароли и другую секретную информацию.</p>
+<noscript>
+<p>Для отправки формы включите JavaScript.</p>
+</noscript>
+</form>
+</div>
+</section>
 </main>
-<footer class="footer"><div class="container footer-top"><a class="brand brand-footer" href="#home"><span class="brand-mark">✦</span><span><b>Три желания</b><small>IT-сервис для ваших задач</small></span></a><div class="footer-links"><a href="#benefits">Преимущества</a><a href="#services">Услуги</a><a href="#price">Стоимость</a><a href="#faq">FAQ</a><a href="privacy.html">Политика данных</a></div><a class="back-top" href="#home">Наверх ↑</a></div><div class="container footer-bottom"><span>© <span id="year"></span> «Три желания»</span><span>Три задачи. Один надёжный партнёр.</span></div></footer>
-<script src="app.js"></script>
-</body></html>
+<footer class="wrap footer">
+<a class="brand" href="index.html">Три IT желания</a>
+<span>IT-задачи с понятным началом.</span>
+<a href="privacy.html">Политика конфиденциальности</a>
+</footer>
+</body>
+</html>
