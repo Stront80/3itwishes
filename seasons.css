@@ -1,0 +1,181 @@
+/* Общая система цветов: тема меняет оформление, не геометрию и состояние игры.
+   Без JavaScript используются нейтральные, контрастные значения из :root. */
+:root {
+  --ink:#1c292c; --muted:#526064; --paper:#f6f8f8; --soft:#eaf0ef;
+  --line:#ccd7d5; --accent:#23645d; --accent-hover:#184b46;
+  --accent-soft:#d9ebe6; --accent-alt:#ccbc93; --deep:#163a36;
+  --surface:#fff; --on-accent:#fff; --on-deep:#eef8f6;
+  --deep-muted:#d0e2de; --field-dot:#9caca8; --motif:url('seasons/summer.svg');
+}
+:root[data-season=winter] {
+  --ink:#142c43; --muted:#506276; --paper:#f2f7fc; --soft:#e6eff9;
+  --line:#c2d3e4; --accent:#235b95; --accent-hover:#174372;
+  --accent-soft:#d6e7f8; --accent-alt:#a6bdde; --deep:#173758;
+  --on-deep:#f2f7ff; --deep-muted:#cfdfef; --field-dot:#a3bad2;
+  --motif:url('seasons/winter.svg');
+}
+:root[data-season=spring] {
+  --ink:#233c30; --muted:#536857; --paper:#f4f8f2; --soft:#e8f0e3;
+  --line:#c6d7bf; --accent:#38633c; --accent-hover:#244c29;
+  --accent-soft:#dcebcf; --accent-alt:#e8abbb; --deep:#244732;
+  --on-deep:#f5faef; --deep-muted:#d8e8d1; --field-dot:#afc5a5;
+  --motif:url('seasons/spring.svg');
+}
+:root[data-season=summer] {
+  --ink:#123d41; --muted:#4b686a; --paper:#f0f8f7; --soft:#e0f0ec;
+  --line:#b9d8d2; --accent:#086b69; --accent-hover:#05514f;
+  --accent-soft:#c9e9df; --accent-alt:#f3cd67; --deep:#114d4d;
+  --on-deep:#f1fcf7; --deep-muted:#c7e7df; --field-dot:#96bdb6;
+  --motif:url('seasons/summer.svg');
+}
+:root[data-season=autumn] {
+  --ink:#392b25; --muted:#705b4d; --paper:#fcf6ef; --soft:#f4e8d9;
+  --line:#dcc7b0; --accent:#98502d; --accent-hover:#753919;
+  --accent-soft:#f0ddbf; --accent-alt:#d6a250; --deep:#513529;
+  --on-deep:#fff7ea; --deep-muted:#ecd9c1; --field-dot:#c4ab8e;
+  --motif:url('seasons/autumn.svg');
+}
+body {background:var(--paper)}
+button,input,textarea,select {font:inherit}
+::selection {background:var(--accent-soft);color:var(--ink)}
+:focus-visible {outline:3px solid var(--accent);outline-offset:4px}
+.wrap {width:min(1280px,calc(100% - 6rem))}
+.header {gap:1.5rem;padding-block:1.25rem;flex-wrap:wrap}
+.brand {letter-spacing:-.035em}
+.brand-mark {color:var(--accent)}
+.header nav {gap:1.4rem;margin-left:auto}
+.header nav a,.language a {display:inline-flex;align-items:center;min-height:44px}
+.language {align-items:center}
+.season-picker {display:flex;align-items:center;gap:.65rem;font-size:.875rem}
+.season-picker[hidden] {display:none}
+.season-picker label {color:var(--muted)}
+.season-picker select {
+  max-width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;
+  padding:.5rem 2rem .5rem .75rem;background-color:var(--surface);color:var(--ink);
+  appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%23526064' stroke-width='1.5'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .6rem center;
+}
+.season-caption {display:inline-flex;align-items:center;gap:.7rem;color:var(--accent);font-size:.875rem;font-weight:600;margin-bottom:1.5rem}
+.season-caption:before {content:'';width:22px;height:22px;background:var(--accent);mask:var(--motif) center/contain no-repeat}
+.hero {padding-top:3.5rem}
+.eyebrow,.hero .eyebrow {font-size:.875rem;letter-spacing:.09em}
+.hero .eyebrow {margin-bottom:1.5rem}
+h1,h2,h3 {font-weight:600}
+h1 {font-size:clamp(3rem,5.4vw,5.7rem);letter-spacing:-.065em}
+h1 em {color:var(--accent)}
+.hero-grid {grid-template-columns:1.4fr 1fr;gap:2.5rem}
+.lead {line-height:1.75}
+.button {border-radius:12px;background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-size:1rem;padding:.9rem 1.6rem}
+.button:hover {background:var(--accent-hover);border-color:var(--accent-hover)}
+.wish-art {height:360px;border:1px solid var(--line);border-radius:50% 50% 22px 22px;background:var(--soft);overflow:hidden}
+.wish-art:before {content:'';position:absolute;width:78%;aspect-ratio:1;border:1px solid var(--line);border-radius:50%;top:8%}
+.wish-art:after {content:'';position:absolute;width:56%;aspect-ratio:1;border:1px solid var(--line);border-radius:50%;top:20%;z-index:-1}
+.wish-loop {width:170px;height:170px;border:0;border-radius:0;background:var(--accent);mask:var(--motif) center/contain no-repeat;transform:rotate(-18deg)}
+.loop-one {translate:-78px 32px;background:var(--accent-alt);transform:rotate(-35deg)}
+.loop-two {translate:0 -45px;transform:rotate(12deg)}
+.loop-three {translate:78px 48px;background:var(--accent-alt);transform:rotate(30deg)}
+.art-caption {bottom:1.3rem;font-size:.875rem;letter-spacing:.17em}
+.facts {margin-top:3rem;padding:1.75rem 0}
+.facts strong {color:var(--accent);font-size:2.8rem}
+.section {padding-block:5rem}
+.section-grid,.price-grid {gap:4rem}
+.service-list article {padding:1.5rem 0;grid-template-columns:1fr 1.2fr}
+.service-list h3 {color:var(--accent)}
+.subscription {background:var(--deep);color:var(--on-deep);position:relative;overflow:hidden}
+.subscription:before {content:'';position:absolute;width:420px;height:420px;left:-170px;bottom:-230px;background:var(--on-deep);opacity:.06;mask:var(--motif) center/contain no-repeat;pointer-events:none}
+.subscription .wrap {position:relative}
+.subscription p,.subscription .eyebrow {color:var(--deep-muted)}
+.price-details ul,.price-details li {border-color:var(--deep-muted)}
+.subscription .light {background:var(--on-deep);color:var(--deep);border-color:var(--on-deep)}
+.subscription .light:hover {background:var(--accent-soft);border-color:var(--accent-soft)}
+.steps {gap:2rem}
+.step-line {background:var(--accent);width:48px;height:4px;border-radius:4px}
+.faq {padding-top:0}
+summary {min-height:64px}
+.request {border-block:1px solid var(--line)}
+input:not([type=checkbox]),textarea {border-color:var(--line);border-radius:10px;background:var(--surface)}
+input::placeholder,textarea::placeholder {color:var(--muted)}
+.consent input {accent-color:var(--accent)}
+.footer a {min-height:44px;display:inline-flex;align-items:center}
+.footer>a:last-child {font-size:.875rem}
+.policy-toolbar {display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+.policy-toolbar>a {min-height:44px;display:inline-flex;align-items:center}
+.policy .season-caption {margin-block:1rem}
+/* Все цвета игрового интерфейса используют ту же тему. Контрастные формы
+   звезды и бага остаются различимы независимо от цветового восприятия. */
+.game-shell {border-color:var(--line);border-radius:20px;background:var(--surface);overflow:hidden}
+.game-stats {background:var(--soft);border-color:var(--line)}
+.game-stats strong {color:var(--accent)}
+.game-field {background-color:var(--paper);background-image:radial-gradient(var(--field-dot) .8px,transparent .8px)}
+.game-orbit {border-color:var(--line)}
+.game-orbit:after {content:'';position:absolute;top:18%;left:12%;width:60px;height:60px;opacity:.16;background:var(--accent);mask:var(--motif) center/contain no-repeat}
+.game-basket {background:var(--accent);color:var(--on-accent)}
+.game-item {color:var(--accent)}
+.game-item.bug {color:var(--ink);background:var(--surface);border-color:var(--ink)}
+.game-overlay {background:var(--paper)}
+.game-overlay p {color:var(--ink)}
+.game-tools button,.game-movement button {border-color:var(--line);border-radius:9px;background:var(--surface);color:var(--ink)}
+.game-tools button[aria-pressed=true] {background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+#game-position {accent-color:var(--accent)}
+.game-heading {gap:2rem}
+@media(max-width:1150px) {
+  .header nav {order:4;width:100%;margin:0;border-top:1px solid var(--line);padding-top:.5rem;flex-wrap:wrap}
+  .language {margin-left:auto}
+  .wrap {width:calc(100% - 4rem)}
+  .section-grid,.price-grid {gap:2.5rem}
+  .service-list article {grid-template-columns:1fr;gap:.75rem}
+  .wish-loop {width:140px;height:140px}
+  .loop-one {translate:-56px 30px}.loop-three {translate:56px 40px}
+}
+@media(max-width:760px) {
+  .wrap {width:calc(100% - 2.5rem)}
+  .header {gap:.6rem 1rem;padding-block:1rem}
+  .brand {font-size:1rem}
+  .season-picker {order:3;width:100%;justify-content:space-between}
+  .season-picker select {flex:1;max-width:230px}
+  .header nav {gap:.2rem 1.25rem;padding-top:.4rem}
+  .hero {padding-top:2rem}
+  .hero-grid,.section-grid,.price-grid {grid-template-columns:1fr;gap:2rem}
+  h1 {font-size:clamp(2.6rem,8.8vw,4rem);max-width:100%}
+  h2 {font-size:clamp(2.2rem,8vw,3.5rem)}
+  .hero .eyebrow {font-size:.875rem;letter-spacing:.045em}
+  .season-caption {margin-bottom:1rem}
+  .wish-art {height:270px;max-width:420px;width:100%;margin:0 auto}
+  .wish-loop {width:130px;height:130px}
+  .loop-one {translate:-58px 26px}.loop-two {translate:0 -35px}.loop-three {translate:58px 35px}
+  .art-caption {font-size:.75rem;letter-spacing:.13em}
+  .facts {gap:1.5rem 1rem;margin-top:2rem}
+  .facts>div {flex-wrap:wrap;gap:.5rem}
+  .facts strong {font-size:2.25rem}
+  .section {padding-block:3.5rem}
+  .faq {padding-top:0}
+  .steps {grid-template-columns:1fr}
+  .game-heading {grid-template-columns:1fr;gap:1rem}
+  .game-stats {padding:.75rem}
+  .game-stats strong {font-size:1.6rem}
+  .game-shell {border-radius:14px}
+  .game-tools {gap:.5rem}
+  .game-tools button {padding:.5rem .7rem}
+  .policy {padding-block:2rem}
+  .policy-toolbar .season-picker {order:0}
+}
+@media(prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+  .button {transition:none}
+}
+
+/* Контраст элементов управления и единая тема игрового поля. */
+.season-caption:empty {display:none}
+.season-picker select,input:not([type=checkbox]),textarea {border-color:var(--muted)}
+.language a {min-width:44px;justify-content:center}
+.subscription :focus-visible {outline-color:var(--on-deep)}
+.game-basket {background:var(--accent);color:var(--on-accent)}
+.game-item {color:var(--accent)}
+.game-item.bug {color:var(--ink);background:var(--surface);border-color:var(--ink)}
+.game-overlay {background:var(--paper)}
+.game-tools button,.game-movement button {background:var(--surface);color:var(--ink);border-color:var(--muted);border-radius:8px}
+.game-tools button:hover:not(:disabled),.game-movement button:hover {background:var(--accent-soft);color:var(--ink)}
+.game-tools button[aria-pressed=true]:hover {background:var(--accent-hover);color:var(--on-accent)}
+.tech-art-image {position:relative;z-index:1;width:min(94%,560px);height:auto;filter:drop-shadow(0 16px 24px color-mix(in srgb,var(--ink) 12%,transparent))}
+.wish-art .art-caption {z-index:2}

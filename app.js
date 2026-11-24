@@ -1,168 +1,118 @@
-/**
- * «Три желания» — клиентская логика лендинга.
- *
- * Важно:
- * - Сайт размещается как статическая страница на GitHub Pages.
- * - Заявки отправляются через Formspree; собственного серверного кода здесь нет.
- * - Endpoint формы не является паролем. Не добавляйте в этот файл SMTP-пароли,
- *   приватные API-ключи или другие секреты.
- * - Проверка в браузере нужна для удобства пользователя, но не заменяет серверную
- *   проверку и антиспам-механизмы Formspree.
- */
-
-const menuButton = document.querySelector('.menu-toggle');
-const nav = document.querySelector('.nav');
-
-// Мобильное меню: переключаем видимость и синхронизируем aria-expanded.
-menuButton?.addEventListener('click', () => {
-  const open = nav.classList.toggle('open');
-  menuButton.setAttribute('aria-expanded', String(open));
-  menuButton.textContent = open ? '✕' : '☰';
-});
-
-// После перехода по ссылке закрываем мобильное меню.
-nav?.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuButton?.setAttribute('aria-expanded', 'false');
-    if (menuButton) menuButton.textContent = '☰';
-  });
-});
-
-// Автоматически обновляем год в подвале.
-const year = document.querySelector('#year');
-if (year) year.textContent = new Date().getFullYear();
-
-/**
- * Настройки интеграции Formspree.
- * Этот публичный endpoint предназначен для приёма отправок формы.
- */
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/myeedlnv';
-
+'use strict';
+// Язык берётся из HTML: страницы остаются читаемыми и без JavaScript.
+const language = document.documentElement.lang === 'en' ? 'en' : 'ru';
+const messages = {
+  ru: {
+    name: 'Укажите имя: от 2 до 120 символов.',
+    phone: 'Укажите корректный номер телефона.',
+    email: 'Укажите корректный email для ответа.',
+    clientType: 'Выберите тип клиента.',
+    task: 'Опишите задачу: от 10 до 5000 символов.',
+    consent: 'Подтвердите согласие на обработку данных.',
+    invalid: 'Проверьте отмеченные поля.',
+    sending: 'Отправляем заявку…',
+    success: 'Спасибо! Заявка отправлена. При необходимости менеджер свяжется с вами.',
+    failure: 'Не удалось отправить заявку. Проверьте подключение и попробуйте ещё раз.',
+  },
+  en: {
+    name: 'Enter a name between 2 and 120 characters.',
+    phone: 'Enter a valid phone number.',
+    email: 'Enter a valid email address for a reply.',
+    clientType: 'Choose a client type.',
+    task: 'Describe your task in 10 to 5,000 characters.',
+    consent: 'Please consent to the processing of your data.',
+    invalid: 'Please check the highlighted fields.',
+    sending: 'Sending your request…',
+    success: 'Thank you! Your request has been sent. The manager will contact you if needed.',
+    failure: 'Could not send your request. Check your connection and try again.',
+  },
+};
 const form = document.querySelector('#application-form');
-
+const status = document.querySelector('#form-status');
+const text = messages[language];
+function setError(field, error) {
+  field.setAttribute('aria-invalid', String(Boolean(error)));
+  document.getElementById(`${field.name}-error`).textContent = error;
+}
 if (form) {
-  const statusBox = form.querySelector('.form-status');
-  const submitButton = form.querySelector('.submit-button');
-  const originalButtonText = submitButton.innerHTML;
-
-  // Показывает ошибку рядом с полем и сообщает её вспомогательным технологиям.
-  function setError(input, message) {
-    const label = input.closest('label');
-    const error = label?.querySelector('.field-error');
-
-    if (error) error.textContent = message;
-    input.setAttribute('aria-invalid', message ? 'true' : 'false');
-  }
-
-  // При редактировании поля убираем устаревшее сообщение об ошибке.
-  form.querySelectorAll('input:not([type="checkbox"]), select, textarea')
-    .forEach((input) => {
-      input.addEventListener('input', () => setError(input, ''));
-      input.addEventListener('change', () => setError(input, ''));
+  // При явной смене языка переносим черновик через хранилище этой вкладки.
+  // Сразу после чтения удаляем его; отказ хранилища не ломает навигацию.
+  const draftKey = 'tri-it-wishes-draft';
+  try {
+    const saved = sessionStorage.getItem(draftKey);
+    sessionStorage.removeItem(draftKey);
+    const draft = saved ? JSON.parse(saved) : {};
+    for (const name of ['name', 'phone', 'email', 'clientType', 'task']) {
+      if (typeof draft[name] === 'string') form.elements[name].value = draft[name];
+    }
+  } catch { /* Без хранилища переход работает, но черновик не переносится. */ }
+  document.querySelector('.language-link')?.addEventListener('click', (event) => {
+    // Удерживаем значения только при штатном переключении в той же вкладке.
+    // Модифицированный клик открывает отдельную страницу без переноса данных.
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    const draft = Object.fromEntries(['name', 'phone', 'email', 'clientType', 'task'].map(name => [name, form.elements[name].value]));
+    try { sessionStorage.setItem(draftKey, JSON.stringify(draft)); }
+    catch { /* При запрете хранилища сохраняем штатную навигацию. */ }
+    if (location.hash === '#request') event.currentTarget.hash = 'request';
+  });
+  for (const name of ['name', 'phone', 'email', 'clientType', 'task', 'consent']) {
+    const field = form.elements[name];
+    field.addEventListener(name === 'consent' ? 'change' : 'input', () => {
+      setError(field, '');
+      status.textContent = '';
     });
-
-  // Отправляем заявку асинхронно, не открывая почтовое приложение и не покидая сайт.
+  }
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-
-    statusBox.className = 'form-status';
-    statusBox.textContent = '';
-
-    let valid = true;
+    status.textContent = '';
     const name = form.elements.name;
-    const phone = form.elements.phone;
     const email = form.elements.email;
+    const phone = form.elements.phone;
     const clientType = form.elements.clientType;
     const task = form.elements.task;
     const consent = form.elements.consent;
-
-    // Базовая клиентская проверка обязательных полей.
     const checks = [
-      [name, name.value.trim().length >= 2, 'Введите имя (не менее 2 символов).'],
-      [phone, /^[+()\d\s-]{7,25}$/.test(phone.value.trim()), 'Введите корректный номер телефона.'],
-      [email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()), 'Введите корректный адрес электронной почты.'],
-      [clientType, Boolean(clientType.value), 'Выберите тип клиента.'],
-      [task, task.value.trim().length >= 10, 'Опишите задачу подробнее (не менее 10 символов).'],
+      [name, name.value.trim().length >= 2 && name.value.trim().length <= 120],
+      [phone, /^[+()\d\s-]{7,25}$/.test(phone.value.trim())],
+      [email, email.value.trim().length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())],
+      [clientType, Boolean(clientType.value)],
+      [task, task.value.trim().length >= 10 && task.value.trim().length <= 5000],
+      [consent, consent.checked],
     ];
-
-    checks.forEach(([input, isValid, message]) => {
-      setError(input, isValid ? '' : message);
-      if (!isValid) valid = false;
-    });
-
-    // Отдельно проверяем согласие, так как это checkbox, а не текстовое поле.
-    const consentError = form.querySelector('.consent-error');
-    consentError.textContent = consent.checked
-      ? ''
-      : 'Необходимо согласие на обработку персональных данных.';
-    consent.setAttribute('aria-invalid', consent.checked ? 'false' : 'true');
-    if (!consent.checked) valid = false;
-
-    if (!valid) {
-      statusBox.className = 'form-status error';
-      statusBox.textContent = 'Пожалуйста, проверьте поля формы.';
-      form.querySelector('[aria-invalid="true"]')?.focus();
+    for (const [field, valid] of checks) setError(field, valid ? '' : text[field.name]);
+    const firstInvalid = checks.find(([, valid]) => !valid);
+    if (firstInvalid) {
+      status.textContent = text.invalid;
+      firstInvalid[0].focus();
       return;
     }
-
-    // Не отправляем форму повторно, пока предыдущий запрос обрабатывается.
-    submitButton.disabled = true;
-    submitButton.setAttribute('aria-busy', 'true');
-    submitButton.textContent = 'Отправляем заявку…';
-
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    button.setAttribute('aria-busy', 'true');
+    button.textContent = text.sending;
     try {
-      // FormData автоматически собирает значения всех именованных полей формы.
-      // Согласие передаётся вместе с заявкой; парольные и иные секретные поля отсутствуют.
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(form.action, {
         method: 'POST',
         body: new FormData(form),
-        headers: {
-          Accept: 'application/json',
-        },
+        headers: { Accept: 'application/json' },
       });
-
-      // Formspree возвращает JSON с описанием ошибки, если отправка не принята.
-      let result = {};
-      try {
-        result = await response.json();
-      } catch {
-        // Если ответ не содержит JSON, ниже покажем общее сообщение об ошибке.
-      }
-
-      if (!response.ok) {
-        const details = Array.isArray(result.errors)
-          ? result.errors.map((item) => item.message).filter(Boolean).join(' ')
-          : '';
-
-        throw new Error(details || 'Сервис не принял заявку. Попробуйте ещё раз.');
-      }
-
-      // Успех показываем только после положительного ответа Formspree.
-      statusBox.className = 'form-status success';
-      statusBox.textContent =
-        'Спасибо! Заявка отправлена. Если потребуется, менеджер свяжется с вами по указанным контактам.';
-
+      if (!response.ok) throw new Error('Formspree error');
+      status.textContent = text.success;
       form.reset();
-
-      // После reset сбрасываем состояние доступности полей и сообщений ошибок.
-      form.querySelectorAll('[aria-invalid]').forEach((input) => {
-        input.setAttribute('aria-invalid', 'false');
-      });
-      form.querySelectorAll('.field-error').forEach((error) => {
-        error.textContent = '';
-      });
-    } catch (error) {
-      // Ошибка сети или отклонённая отправка: не сообщаем пользователю об успехе.
-      statusBox.className = 'form-status error';
-      statusBox.textContent = error instanceof Error
-        ? error.message
-        : 'Не удалось отправить заявку. Проверьте подключение к интернету и попробуйте ещё раз.';
+      form.querySelectorAll('[aria-invalid]').forEach(field => field.setAttribute('aria-invalid', 'false'));
+      form.querySelectorAll('.field-error').forEach(error => { error.textContent = ''; });
+    } catch {
+      status.textContent = text.failure;
     } finally {
-      // Возвращаем кнопку в исходное состояние и разрешаем повторную попытку.
-      submitButton.disabled = false;
-      submitButton.removeAttribute('aria-busy');
-      submitButton.innerHTML = originalButtonText;
+      button.disabled = false;
+      button.removeAttribute('aria-busy');
+      button.textContent = language === 'en' ? 'Send request' : 'Отправить заявку';
     }
+    status.focus();
   });
+}
+// Ссылка политики переключается на перевод политики, а не на главную страницу.
+if (!form) {
+  const switcher = document.querySelector('.language-link');
+  if (switcher) switcher.href = language === 'en' ? '../privacy.html' : 'en/privacy.html';
 }
